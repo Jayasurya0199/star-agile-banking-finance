@@ -1,0 +1,38 @@
+- name: Configure Docker on EC2 Instance (Local)
+  hosts: local
+  become: true
+  tasks:
+    - name: Updating apt
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Start Docker Service
+      systemd:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Add Jenkins user to Docker group
+      user:
+        name: jenkins
+        groups: docker
+        append: yes
+
+    - name: Restart Jenkins Service
+      systemd:
+        name: jenkins
+        state: restarted
+        enabled: true
+
+    - name: Pull Docker Image
+      command: docker pull jayasurya0199/staragilefinancev1:latest
+      register: pull_result
+
+    - name: Deploy Docker Container
+      command: docker run -itd -p 8085:8081 --name staragilefinance-app jayasurya0199/staragilefinancev1:latest
+      when: pull_result.rc == 0
