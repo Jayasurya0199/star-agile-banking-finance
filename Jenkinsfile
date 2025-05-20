@@ -49,15 +49,15 @@ pipeline {
                 }
             }
         }
-
-        stage('Configure and Run Docker Locally') {
-            steps {
-                script {
-                    sh """
-                    ansible-playbook -i ${env.ANSIBLE_INVENTORY} ${env.ANSIBLE_PLAYBOOK}
-                    """
-                }
-            }
-        }
-    }
+      stage('Configure and Run Docker Locally') {
+             steps {
+                 script {
+                    dir("${env.WORKSPACE}") {
+                       sh "ls -l"
+                       ansible-playbook -i ${env.ANSIBLE_INVENTORY} ${env.ANSIBLE_PLAYBOOK}
+                                             }
+                 }
+             }
+         }
+    }    
 }
