@@ -1,0 +1,51 @@
+- name: Configure Docker on EC2 Instance (Local)
+  hosts: all
+  become: true
+  tasks:
+    - name: Remove conflicting containerd (if exists)
+      apt:
+        name: containerd
+        state: absent
+      ignore_errors: true
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release | lower }} stable
+        state: present
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker packages
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+
+    - name: Start Docker Service
+      systemd:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Pull Docker Image
+      docker_image:
+        name: jayasurya0199/staragilefinancev1
+        tag: latest
+        source: pull
+
+    - name: Run Docker Container
+      docker_container:
+        name: staragilefinance-app
+        image: jayasurya0199/staragilefinancev1:latest
+        state: started
+        ports:
+          - "8085:8081"
