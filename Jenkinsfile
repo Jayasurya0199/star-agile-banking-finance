@@ -54,7 +54,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    ansible-playbook -i ${env.ANSIBLE_INVENTORY} ${env.ANSIBLE_PLAYBOOK}
+                    ansible-playbook -i  ${env.ANSIBLE_PLAYBOOK}
                     """
                 }
             }
