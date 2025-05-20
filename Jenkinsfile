@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerhub-creds'
         IMAGE_NAME = 'jayasurya0199/staragilefinancev1'
-        REPO_URL = 'https://github.com/Jayasurya0199/projectSA1.git'
+        REPO_URL = 'https://github.com/Jayasurya0199/star-agile-banking-finance.git'
         ANSIBLE_PLAYBOOK = 'docker-setup2.yml'
         ANSIBLE_INVENTORY = 'inventory'
     }
