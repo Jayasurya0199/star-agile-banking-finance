@@ -49,12 +49,10 @@ pipeline {
                 }
             }
         }
-       stage('Configure and Run Docker Locally') {
+       stage('Configure and Run Docker using Ansible') {
             steps {
               script {
-                 dir("${env.WORKSPACE}") {
-                 sh "ls -l"
-                 sh "ansible-playbook -i ${env.ANSIBLE_INVENTORY} ${env.ANSIBLE_PLAYBOOK}"
+                 ansiblePlaybook become: true, credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'docker-setup.yml', vaultTmpPath: ''
                 }
              }
           }
