@@ -74,3 +74,30 @@ What	Where
 Private Key	Paste into Jenkins credential
 Public Key	Copy to /home/ansadmin/.ssh/authorized_keys on target node
 Username	Must match the remote server user (ansadmin)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ So why do many people still create a new user like ansadmin?
+Here’s a summary:
+
+Reason	Default user (ubuntu)	Custom user (ansadmin)
+Quick setup                 	✅ Yes	❌ Requires setup
+Better security isolation   	❌ No	✅ Yes
+Easy auditing	                ❌ Shared	✅ Separate user identity
+Custom permissions	          ⚠️ Limited	✅ Fully controllable
+Cleaner automation workflows	⚠️ Depends	✅ Consistent
+
+✅ Conclusion:
+You can use the default ubuntu user if:
+
+You're okay with its privileges and group memberships.
+
+You're in a smaller or less security-critical setup.
+
+But for best practices (especially in production or team environments), creating a dedicated user like ansadmin gives you:
+
+Cleaner logs
+
+Better control
+
+Reduced risk
