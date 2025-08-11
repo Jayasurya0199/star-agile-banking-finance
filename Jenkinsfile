@@ -5,7 +5,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS = 'dockerhub-creds'
         IMAGE_NAME = 'jayasurya0199/staragilefinancev1'
         REPO_URL = 'https://github.com/Jayasurya0199/star-agile-banking-finance.git'
-        ANSIBLE_PLAYBOOK = 'docker-setup2.yml'
+        ANSIBLE_PLAYBOOK = 'docker-setup3.yml'
         ANSIBLE_INVENTORY = 'inventory'
     }
 
@@ -52,7 +52,7 @@ pipeline {
        stage('Configure and Run Docker using Ansible') {
             steps {
               script {
-                 ansiblePlaybook become: true, credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'docker-setup.yml', vaultTmpPath: ''
+                 ansiblePlaybook become: true, credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'docker-setup3.yml', vaultTmpPath: ''
                 }
              }
           }
